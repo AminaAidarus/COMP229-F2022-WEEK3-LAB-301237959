@@ -18,6 +18,10 @@ import path, {dirname} from 'path';
 import { fileURLToPath } from "url";
 const ___dirname = dirname(fileURLToPath(import.meta.url));
 
+// Import Router 
+import indexRouter from './app/routes/index.route.server.js';
+
+
 //instantiate app-server
 const app = express();
 
@@ -56,7 +60,7 @@ function helloJson(req, res, next){
 //add middleware to connect application
 app.use('/html', helloHtml);
 app.use('/json', helloJson);
-app.use('/',helloPlain);
+app.use(indexRouter);
 
 //run app
 app.listen(3000);
