@@ -21,6 +21,20 @@ const ___dirname = dirname(fileURLToPath(import.meta.url));
 //instantiate app-server
 const app = express();
 
+//setup ViewEngine EJS
+app.set('views', path.join(___dirname,'/views'));
+app.set('view engine', 'ejs');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(___dirname, '../public')));
+app.use(session({
+    secret: 'MySecret' ,
+    saveUninitialized: false ,
+    resave: false
+}));
 //custom middleware
 function helloPlain(req, res, next){
     res.setHeader('Content-Type','text/plain');
