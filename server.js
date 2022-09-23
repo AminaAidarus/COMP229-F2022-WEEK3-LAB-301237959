@@ -7,11 +7,19 @@ LAB : 2
 DESCRIPTION: Create a new Node.Js Application that listens to http requests on port 3000 and return 3 different HTTP responses
 */
 
-//importing third-party connect module
-const connect = require('connect');
+//import express 
+import express from "express";
+import cookieParser from "cookie-parser";
+import logger from 'morgan';
+import session from "express-session";
+
+// ES Modules fix for __dirname
+import path, {dirname} from 'path';
+import { fileURLToPath } from "url";
+const ___dirname = dirname(fileURLToPath(import.meta.url));
 
 //instantiate app-server
-const app = connect();
+const app = express();
 
 //custom middleware
 function helloPlain(req, res, next){
