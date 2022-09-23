@@ -1,8 +1,7 @@
 //Index controller
 
 export function helloPlain(req, res, next){
-    res.setHeader('Content-Type','text/plain');
-    res.end("Hello from NodeJS Application");
+    res.render('index');
 }
 
 export function helloHtml(req, res, next){
