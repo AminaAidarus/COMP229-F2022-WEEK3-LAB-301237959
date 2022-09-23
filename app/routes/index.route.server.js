@@ -5,7 +5,7 @@ import { helloHtml } from '../controllers/index.controller.server.js';
 const router = Router();
 
 // add middleware to connect application
-router.use('/',helloPlain);
-router.use('/html',helloHtml);
+router.get('/',helloPlain);
+router.get('/html',helloHtml);
 
 export default router;
