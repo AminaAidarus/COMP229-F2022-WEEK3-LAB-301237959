@@ -1,44 +1,35 @@
-/* 
-Name: Amina Aidarus
-Student number: 301237959
-COURSE: COMP229
-SEM: 3
-LAB : 2
-DESCRIPTION: Create a new Node.Js Application that listens to http requests on port 3000 and return 3 different HTTP responses
-*/
-
-//Third Party Modules
+// Third Party Modules
 import express from "express";
 import cookieParser from "cookie-parser";
 import logger from 'morgan';
 import session from "express-session";
 
-// ES Modules fix for __dirname
+// ES Modules fix for __dirname 
 import path, {dirname} from 'path';
 import { fileURLToPath } from 'url';
-const ___dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// Import Router 
+// Import Router
 import indexRouter from './app/routes/index.route.server.js';
 
-
-//instantiate app-server
+// instantiate app-server
 const app = express();
 
-//setup ViewEngine EJS
-app.set('views', path.join(___dirname,'/app/views'));
+// setup ViewEngine EJS
+app.set('views', path.join(__dirname,'/app/views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+app.use(logger('dev')); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(___dirname, '../public')));
+app.use(express.static(path.join(__dirname, '/public')));
 app.use(session({
-    secret: 'MySecret' ,
-    saveUninitialized: false ,
+    secret: 'MySecret',
+    saveUninitialized: false,
     resave: false
 }));
+
 // Use Routes
 app.use('/', indexRouter);
 
@@ -46,3 +37,61 @@ app.use('/', indexRouter);
 app.listen(3000);
 
 console.log('Server running at http://localhost:3000');
+import debug from 'debug';
+debug('comp-229');
+import http from 'http';
+
+import app from './app/app.js';
+
+const PORT = normalizePort(process.env.PORT || 3000);
+app.set('port', PORT);
+
+const server = http.createServer(app);
+
+server.listen(PORT);
+server.on('error', onError);
+server.on('listening', onListening);
+
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+
+    if (port >= 0) {
+        return port;
+    }
+
+    return false;
+}
+
+function onError(error) {
+    if (error.syscall !== 'listen') {
+        throw error;
+    }
+
+    let bind = typeof port === 'string'
+        ? 'Pipe ' + port
+        : 'Port ' + port;
+
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+        case 'EACCES':
+            console.error(bind + ' requires elevated privileges');
+            process.exit(1);
+            break;
+        case 'EADDRINUSE':
+            console.error(bind + ' is already in use');
+            process.exit(1);
+            break;
+        default:
+            throw error;
+    }
+}
+
+function onListening() 
+{
+  let addr = server.address();
+  let bind = 'pipe ' + addr;
+  debug('Listening on ' + bind);
+}
