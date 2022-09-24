@@ -12,7 +12,7 @@ router.get('/home',displayHomePage);
 router.get('/services',displayServicesPage);
 router.get('/projects',displayProjectsPage);
 router.get('/about',displayAboutPage);
-router.get('/contacts',displayContactsPage);
+router.get('/contact',displayContactsPage);
 
 
 export default router;
