@@ -37,6 +37,8 @@ app.use('/', indexRouter);
 app.listen(3000);
 
 console.log('Server running at http://localhost:3000');
+
+
 import debug from 'debug';
 debug('comp-229');
 import http from 'http';
